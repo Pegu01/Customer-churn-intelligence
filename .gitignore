@@ -14,17 +14,6 @@ env/
 # Data files
 *.csv
 *.xlsx
-*.xls
 
-# OS files
-.DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-
-# Environment variables
-.env
-
-# Logs
-*.log
+# Processed data
+Data/Processed/
