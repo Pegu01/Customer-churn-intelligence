@@ -9,7 +9,9 @@ customer-churn-intelligence/
 │
 ├── data/
 │   ├── raw/
-│   └── processed/
+│   │   └── hm/
+│   ├── processed/
+│   └── synthetic/
 ├── notebooks/
 ├── sql/
 ├── src/
