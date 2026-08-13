@@ -7,3 +7,4 @@ scipy
 jupyter
 openpyxl
 sqlalchemy
+duckdb
