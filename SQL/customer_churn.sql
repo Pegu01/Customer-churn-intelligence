@@ -12,6 +12,10 @@ SELECT
 FROM read_csv_auto('Data/Raw/HM/transactions_train.csv');
 
 ---------------------------------------------------
+/* This comment
+   spans multiple
+   lines */
+
 WITH feature_window AS (
     SELECT
         customer_id,
@@ -113,6 +117,21 @@ SELECT
 FROM customer_churn;
 
 ----------------------------------------------------------
+SELECT
+    COUNT(DISTINCT customer_id) AS feature_window_customers
+FROM read_csv_auto('Data/Raw/HM/transactions_train.csv')
+WHERE t_dat <= '2020-05-25';
+
+
+/* Check total unique customers again */
+
+SELECT
+    COUNT(DISTINCT customer_id) AS total_unique_customers
+FROM read_csv_auto('Data/Raw/HM/transactions_train.csv');
+
+
+/* Verify the feature-window count */
+
 SELECT
     COUNT(DISTINCT customer_id) AS feature_window_customers
 FROM read_csv_auto('Data/Raw/HM/transactions_train.csv')
