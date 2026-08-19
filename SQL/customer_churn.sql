@@ -140,7 +140,7 @@ WHERE t_dat <= '2020-05-25';
 -- Monthly transaction trend: Sept 2018 to Sept 2020
 
 SELECT
-    date_trunc('month', t_dat) AS month,
+    DATE_TRUNC('month', t_dat) AS month,
     COUNT(*) AS total_transactions
 FROM read_csv_auto('Data/Raw/HM/transactions_train.csv')
 GROUP BY 1
