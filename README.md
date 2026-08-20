@@ -1,35 +1,72 @@
 # Customer Churn Intelligence
 
-An end-to-end customer churn analysis and prediction project using Python, SQL, machine learning, and dashboarding.
+An end-to-end customer churn prediction and retention recommendation system combining machine learning, explainable AI, revenue-at-risk analysis, and a local LLM.
 
-## Project Structure
+---
+
+## 📌 Project Overview
+
+Customer churn is a major business problem because identifying customers at risk of leaving is only useful when the business can take an appropriate retention action.
+
+This project builds an end-to-end **Customer Churn Intelligence system** that:
+
+1. Predicts customer churn probability using XGBoost.
+2. Explains individual predictions using SHAP.
+3. Estimates expected revenue at risk.
+4. Converts model evidence into a practical retention recommendation using a locally hosted Llama 3.2 model.
+5. Provides an interactive Streamlit dashboard for customer-level analysis.
+
+The key design principle is:
+
+> **XGBoost predicts → SHAP explains → Llama translates.**
+
+The LLM does not independently predict churn and is not allowed to invent customer facts.
+
+---
+
+# 🎯 Business Problem
+
+Businesses often know that a customer is at risk of churn but may not know:
+
+- Which customers should be prioritized?
+- Why is a particular customer considered risky?
+- How much revenue is potentially exposed?
+- What retention action should be considered?
+
+This project addresses these questions through a single analytical workflow.
+
+---
+
+# 🧠 System Architecture
 
 ```text
-customer-churn-intelligence/
-│
-├── data/
-│   ├── raw/
-│   │   └── hm/
-│   ├── processed/
-│   └── synthetic/
-├── notebooks/
-├── sql/
-├── src/
-├── dashboard/
-├── reports/
-├── README.md
-├── requirements.txt
-└── .gitignore
-
-COVID-period data limitation: The transaction dataset ends in September 2020, limiting the ability to assess longer-term post-pandemic customer behavior. Monthly transaction volume does not show a sustained decline beginning in March–April 2020. Transactions increased from 1,047,752 in March 2020 to 1,764,507 in June 2020 before declining to 798,269 in September 2020. Therefore, the dataset does not support attributing the observed customer churn rate directly to a sustained COVID-period transaction collapse. The lack of data beyond September 2020 nevertheless prevents assessment of longer-term recovery and post-pandemic retention patterns.
-
-
-XGBoost marginally outperforms Logistic Regression on both ROC-AUC and PR-AUC. Therefore, XGBoost is selected as the primary predictive model, while Logistic Regression serves as an interpretable baseline.Why XGBoost is still our winner : PR-AUC is particularly important here because we're interested in identifying customers likely to churn.
-
-XGBoost:
-PR-AUC = 0.8759
-versus Logistic Regression:
-PR-AUC = 0.8696
-So XGBoost has the better ranking performance on the test set.
-
-H&M's price field is normalized [0,1] to anonymize real prices — confirmed via independent research, not officially disclosed by H&M. The 590x factor below is a community-derived approximation (Kaggle discussion #310496), NOT verified ground truth.
+                    Customer Data
+                         │
+                         ▼
+                Feature Engineering
+                         │
+                         ▼
+                  XGBoost Model
+                         │
+                         ▼
+                Churn Probability
+                         │
+                         ▼
+                       SHAP
+                         │
+              ┌──────────┴──────────┐
+              ▼                     ▼
+       Churn Drivers          Revenue at Risk
+              │                     │
+              └──────────┬──────────┘
+                         ▼
+                  Controlled Prompt
+                         │
+                         ▼
+                  Local Llama 3.2
+                         │
+                         ▼
+             Retention Recommendation
+                         │
+                         ▼
+                Streamlit Dashboard
