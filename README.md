@@ -225,11 +225,11 @@ Machine Learning
       ↓
 Prediction
 
-SHAP
+     SHAP
       ↓
 Explanation
 
-LLM
+     LLM 
       ↓
 Business Translation
 ```
@@ -265,6 +265,22 @@ Users can enter a Customer ID and receive:
 
 ---
 
+### Dashboard Preview
+
+The Streamlit interface provides an interactive customer-level
+view of:
+
+- Churn probability
+- Risk level
+- Total spend
+- Revenue at risk
+- SHAP churn drivers
+- LLM-generated retention recommendation
+
+The dashboard is designed to turn the analytical pipeline into
+a practical decision-support tool for customer retention.
+
+---
 # 📈 Example Customer Analysis
 
 Example customer:
@@ -453,6 +469,20 @@ Customer-level analytical information is passed to the locally running Llama mod
 The LLM is constrained to use model-generated evidence rather than independently analyzing unrestricted raw customer data.
 
 ---
+# 💡 Key Analytical Insight
+
+The system separates three distinct responsibilities:
+
+| Component | Responsibility |
+|---|---|
+| XGBoost | Predict churn probability |
+| SHAP | Explain the individual prediction |
+| Llama 3.2 | Translate evidence into a business recommendation |
+
+This separation is intentional. The LLM does not replace the
+predictive model or the explainability layer.
+
+> **XGBoost predicts → SHAP explains → Llama translates.**
 
 # ⚠️ Limitations
 
